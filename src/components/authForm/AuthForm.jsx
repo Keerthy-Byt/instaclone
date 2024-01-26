@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -16,23 +17,54 @@ const AuthForm = () => {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
-  const handleAuth = () => {};
+  const handleAuth = () => {
+    if (!inputs.email || !inputs.password) {
+      alert("Please fill in all the fields");
+      return;
+    }
+    navigate("/");
+  };
+
   return (
     <>
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
         <VStack spacing={4}>
           <Image src="./logo.png" alt="Logo" cursor={"pointer"} />
-          <Input placeholder="E-mail" type="email" fontSize={14} />
-          <Input placeholder="Password" type="password" fontSize={14} />
+          <Input
+            placeholder="E-mail"
+            type="email"
+            fontSize={14}
+            value={inputs.email}
+            onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            fontSize={14}
+            value={inputs.password}
+            onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
+          />
           {/* Input for register */}
+          {!isLogin ? (
+            <Input
+              placeholder="Password"
+              type="password"
+              fontSize={14}
+              value={inputs.confirmPassword}
+              onChange={(e) =>
+                setInputs({ ...inputs, confirmPassword: e.target.value })
+              }
+            />
+          ) : null}
           <Button
             w={"full"}
             colorScheme="blue"
             size={"sm"}
             fontSize={14}
             onClick={() => {
-              handleAuth;
+              handleAuth();
             }}
           >
             {isLogin ? "Log In" : "Sign Up"}
