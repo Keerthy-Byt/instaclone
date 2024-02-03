@@ -14,7 +14,7 @@ import {
   CommentLogo,
 } from "../../assets/constants";
 
-const PostFooter = ({ username }) => {
+const PostFooter = ({ username, isProfilePage }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(10);
 
@@ -28,7 +28,7 @@ const PostFooter = ({ username }) => {
     }
   };
   return (
-    <Box mb={10}>
+    <Box mb={10} mt={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={2}>
         <Box onClick={handleLike} cursor={"pointer"} fontSize={18}>
           {!liked ? <NotificationsLogo /> : <UnlikeLogo />}
@@ -40,15 +40,19 @@ const PostFooter = ({ username }) => {
       <Text fontWeight={600} fontSize={"sm"}>
         {likes} likes
       </Text>
-      <Text fontWeight={700} fontSize={"sm"}>
-        {username}{" "}
-        <Text as="span" fontWeight={400}>
-          Feeling Great
-        </Text>
-      </Text>
-      <Text fontSize={"sm"} color={"gray"}>
-        View all Comments
-      </Text>
+      {!isProfilePage && (
+        <>
+          <Text fontWeight={700} fontSize={"sm"}>
+            {username}{" "}
+            <Text as="span" fontWeight={400}>
+              Feeling Great
+            </Text>
+          </Text>
+          <Text fontSize={"sm"} color={"gray"}>
+            View all Comments
+          </Text>
+        </>
+      )}
       <Flex>
         <InputGroup>
           <Input
