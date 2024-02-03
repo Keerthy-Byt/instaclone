@@ -20,20 +20,23 @@ const FeedPosts = () => {
   return (
     <Container maxW={"container.sm"} py={10} px={2}>
       {isLoading &&
-        [0, 1, 2, 3].map((_, idx) => {
+        [0, 1, 2, 3].map((_, idx) => (
           <VStack key={idx} gap={4} alignItems={"flex-start"} mb={10}>
             <Flex gap={2}>
               <SkeletonCircle size={10} />
               <VStack gap={2} alignItems={"flex-start"}>
-                <Skeleton height={"10px"} w={"2009px"}></Skeleton>
-                <Skeleton height={"10px"} w={"2009px"}></Skeleton>
+                <Skeleton height={"10px"} w={"200px"}></Skeleton>
+                {/* Adjusted width value in the line above */}
+                <Skeleton height={"10px"} w={"200px"}></Skeleton>
+                {/* Adjusted width value in the line above */}
               </VStack>
             </Flex>
             <Skeleton w={"full"}>
               <Box h={"500px"}></Box>
             </Skeleton>
-          </VStack>;
-        })}
+          </VStack>
+        ))}
+
       {!isLoading && (
         <>
           <FeedPost img="./img4.jpg" username="Keerthy" avatar="./img4.jpg" />
