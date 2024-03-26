@@ -1,7 +1,7 @@
 import { Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import Login from "./Login";
-import SignUp from "./SignUp";
+import Signup from "./Signup";
 import GoogleAuth from "./GoogleAuth";
 
 const AuthForm = () => {
@@ -11,10 +11,11 @@ const AuthForm = () => {
     <>
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
         <VStack spacing={4}>
-          <Image src="./logo.png" alt="Logo" cursor={"pointer"} />
+          <Image src="/logo.png" h={24} cursor={"pointer"} alt="Instagram" />
 
-          {isLogin ? <Login /> : <SignUp />}
-          {/* or */}
+          {isLogin ? <Login /> : <Signup />}
+
+          {/* ---------------- OR -------------- */}
           <Flex
             alignItems={"center"}
             justifyContent={"center"}
@@ -28,24 +29,22 @@ const AuthForm = () => {
             </Text>
             <Box flex={2} h={"1px"} bg={"gray.400"} />
           </Flex>
-          {/* Mit google anmelden */}
-          <GoogleAuth />
+
+          <GoogleAuth prefix={isLogin ? "Log in" : "Sign up"} />
         </VStack>
       </Box>
-      {/* Log In Sign Up Changing Box */}
+
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
         <Flex alignItems={"center"} justifyContent={"center"}>
           <Box mx={2} fontSize={14}>
-            {isLogin ? "Don't have Account" : "Already have Account?"}
+            {isLogin ? "Don't have an account?" : "Already have an account?"}
           </Box>
           <Box
+            onClick={() => setIsLogin(!isLogin)}
             color={"blue.500"}
             cursor={"pointer"}
-            onClick={() => {
-              setIsLogin(!isLogin);
-            }}
           >
-            {isLogin ? "Sign Up" : "Log In"}
+            {isLogin ? "Sign up" : "Log in"}
           </Box>
         </Flex>
       </Box>

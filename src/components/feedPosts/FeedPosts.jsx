@@ -4,45 +4,42 @@ import {
   Flex,
   Skeleton,
   SkeletonCircle,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import FeedPost from "./FeedPost";
-import { useEffect, useState } from "react";
+import useGetFeedPosts from "../../hooks/useGetFeedPosts";
 
 const FeedPosts = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, posts } = useGetFeedPosts();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
   return (
     <Container maxW={"container.sm"} py={10} px={2}>
       {isLoading &&
-        [0, 1, 2, 3].map((_, idx) => (
+        [0, 1, 2].map((_, idx) => (
           <VStack key={idx} gap={4} alignItems={"flex-start"} mb={10}>
-            <Flex gap={2}>
-              <SkeletonCircle size={10} />
+            <Flex gap="2">
+              <SkeletonCircle size="10" />
               <VStack gap={2} alignItems={"flex-start"}>
-                <Skeleton height={"10px"} w={"200px"}></Skeleton>
-                {/* Adjusted width value in the line above */}
-                <Skeleton height={"10px"} w={"200px"}></Skeleton>
-                {/* Adjusted width value in the line above */}
+                <Skeleton height="10px" w={"200px"} />
+                <Skeleton height="10px" w={"200px"} />
               </VStack>
             </Flex>
             <Skeleton w={"full"}>
-              <Box h={"500px"}></Box>
+              <Box h={"400px"}>contents wrapped</Box>
             </Skeleton>
           </VStack>
         ))}
 
-      {!isLoading && (
+      {!isLoading &&
+        posts.length > 0 &&
+        posts.map((post) => <FeedPost key={post.id} post={post} />)}
+      {!isLoading && posts.length === 0 && (
         <>
-          <FeedPost img="./img4.jpg" username="Keerthy" avatar="./img4.jpg" />
-          <FeedPost img="./img1.jpg" username="Reha" avatar="./img1.jpg" />
-          <FeedPost img="./img2.jpg" username="Rina" avatar="./img2.jpg" />
-          <FeedPost img="./img3.jpg" username="Nisha" avatar="./img3.jpg" />
+          <Text fontSize={"md"} color={"red.400"}>
+            Dayuum. Looks like you don&apos;t have any friends.
+          </Text>
+          <Text color={"red.400"}>Stop coding and go make some!!</Text>
         </>
       )}
     </Container>

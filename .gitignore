@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 Instagram Clone.pptx
 ~$Instagram Clone.pptx
+
+.env
